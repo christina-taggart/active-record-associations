@@ -5,6 +5,7 @@ class Student < ActiveRecord::Base
   validates :email, :uniqueness => true
   validate :person_must_be_5
   validate :validate_phone
+  belongs_to :teacher
 
   def name
     self.first_name + " " + self.last_name
