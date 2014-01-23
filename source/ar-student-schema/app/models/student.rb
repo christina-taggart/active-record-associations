@@ -1,20 +1,24 @@
 require_relative '../../db/config'
 
 class Student < ActiveRecord::Base
-  validates :email,
-            :format => {
-              :with    => /^([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})$/i,
-              :message => "Only letters allowed" }
   validates :email, :uniqueness => true
+  validate :email_must_have_valid_format
   validate :age_cannot_be_less_than_five
   validate :phone_number_must_have_at_leat_ten_digits
 
   def name
-    self.first_name + " " + self.last_name
+    first_name + " " + last_name
+  end
+
+  def name=(name)
+    name = name.split(" ")
+    first_name, last_name = name.shift, name.join(" ")
+    self.first_name = first_name
+    self.last_name = last_name
   end
 
   def age
-    ((Date.today - self.birthday)/(365.2422)).to_i
+    ((Date.today - birthday)/(365.2422)).to_i
   end
 
   def age_cannot_be_less_than_five
@@ -24,8 +28,14 @@ class Student < ActiveRecord::Base
   end
 
   def phone_number_must_have_at_leat_ten_digits
-    if self.phone.scan(/\d/).count < 10
+    if phone.scan(/\d/).count < 10
       errors.add(:phone, "Phone number must have at least 10 digits")
+    end
+  end
+
+  def email_must_have_valid_format
+    unless email.match(/^([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})$/)
+      errors.add(:email, "Email must have valid format")
     end
   end
 end

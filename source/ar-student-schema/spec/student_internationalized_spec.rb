@@ -9,6 +9,7 @@ describe Student, "internationalized" do
     student.name = "John Doe"
     student.save!
     student = Student.find(student.id)
+    puts student.name
     student.name.should == "John Doe"
   end
 
