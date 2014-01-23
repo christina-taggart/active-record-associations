@@ -1,4 +1,6 @@
 require_relative '../app/models/teachers'
+require_relative '../app/models/student'
+
 require 'faker'
 module TeachersImporter
   def self.import
@@ -11,3 +13,4 @@ module TeachersImporter
     end
   end
 end
+

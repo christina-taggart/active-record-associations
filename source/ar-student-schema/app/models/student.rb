@@ -1,6 +1,8 @@
 require_relative '../../db/config'
 
 class Student < ActiveRecord::Base
+   has_many :student_teachers
+   has_many :teachers, through: :student_teachers
    validates :email, :uniqueness => true, :format => { :with => /.\@.+\.../, :message => "Not a valid email"}
    validate :person_must_be_5_years_old
    #validates :phone, :format => { :with => /d{3}/, :message => "Not a valid phone number"}
