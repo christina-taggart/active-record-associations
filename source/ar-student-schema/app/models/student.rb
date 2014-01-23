@@ -21,6 +21,9 @@ end
 
 
 class Student < ActiveRecord::Base
+  has_many :student_teachers
+  has_many :teachers, through: :student_teachers
+
   validates :email, :format => { :with => /.+@.+\..{2,}/ }
   validates :email, :uniqueness => true
   validates_with PhoneValidator
