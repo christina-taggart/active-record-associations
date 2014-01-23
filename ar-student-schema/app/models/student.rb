@@ -3,7 +3,14 @@ require_relative '../../db/config'
 class Student < ActiveRecord::Base
 # implement your Student model here
 
-  belongs_to :teacher
+
+#=======   Associations   ============
+
+  has_and_belongs_to_many :teachers
+
+
+#=======   Validations   ============
+
 
   validates :email, :format => { :with => /[\d\w]+@[\d\w]+\.\w{2,}/,
     :message => "Not Valid Email"}

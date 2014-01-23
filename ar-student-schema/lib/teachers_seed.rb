@@ -14,8 +14,10 @@ module TeachersSeeder
                      email: Faker::Internet.email,
                      phone: Faker::PhoneNumber.phone_number.gsub(/[()-.]/, '')[0..9]
 
-      6.times do
-        students.pop.update_attributes teacher: new_teacher
+      students.each do |student|
+        new_teacher.students << student
+        # student.teachers << new_teacher
+        # students.pop.update_attributes teacher: new_teacher
       end
 
     end
