@@ -25,7 +25,9 @@ class PhoneValidator < ActiveModel::Validator
 end
 
 class Student < ActiveRecord::Base
-  belongs_to :teacher
+  has_and_belongs_to_many :teachers
+  # has_many :teachers_students
+  # has_many :teachers, :through => :teachers_students, source: "teacher_id"
   include ActiveModel::Validations
   validates_with EmailValidator
   validates_with AgeValidator

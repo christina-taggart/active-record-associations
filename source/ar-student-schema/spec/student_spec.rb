@@ -2,6 +2,7 @@ require 'rspec'
 require 'date'
 require_relative '../app/models/student'
 require_relative '../app/models/teacher'
+require_relative '../app/models/teachers_students'
 
 
 describe Student, "#name and #age" do
@@ -128,15 +129,16 @@ describe Student, "teacher association" do
     Student.delete_all
     Teacher.delete_all
 
-    @teacher = Teacher.create!(
+    @teachers = []
+    2.times do |num|
+    @teachers << Teacher.create!(
         :first_name => "Tiger",
         :last_name => "Woods",
-        :email => "winner@pga.com",
+        :email => "winner#{num}@pga.com",
         :phone => "123-123-1234"
       )
-
+      end
     @students = []
-
     9.times do |num|
       @students << Student.create!(
         :first_name => "Happy#{num}",
@@ -144,19 +146,28 @@ describe Student, "teacher association" do
         :gender => 'male',
         :email => "kreayshawn#{num}@oaklandhiphop.net",
         :phone => '(510) 555-1212 x4567',
-        :birthday => Date.new(1970,9,1),
-        :teacher_id => @teacher.id
+        :birthday => Date.new(1970,9,1)
       )
     end
+
+=begin
+    0.upto(4) do |i|
+      TeachersStudents.create!(
+        :teacher_id => 1,
+        :student_id => @students[i].id
+        )
+    end
+=end
+
   end
 
-  it "student should belong to teacher" do
-    expect(@students[0].teacher).to eq @teacher
+  it "student should have many teachers" do
+    expect(@students[0].teachers).to eq 1
   end
 
-  it "teacher should see all students" do
+  it "teacher should have many students" do
     9.times do |num|
-      expect(@teacher.students[num].id).to eq @students[num].id
+      # expect(@teacher.students[num].id).to eq @students[num].id
     end
   end
 
