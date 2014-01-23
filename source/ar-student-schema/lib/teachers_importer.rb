@@ -8,7 +8,6 @@ module TeachersImporter
       e_mail = Faker::Internet.email
       phone_num = Faker::PhoneNumber.phone_number
       attribute_hash = {first_name: first, last_name: last, email: e_mail, phone: phone_num}
-      p attribute_hash
       Teacher.create!(attribute_hash)
     end
   end

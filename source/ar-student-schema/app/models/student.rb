@@ -1,6 +1,8 @@
 require_relative '../../db/config'
 
 class Student < ActiveRecord::Base
+  belongs_to :teacher
+
   validates :email, :uniqueness => true
   validate :email_must_have_valid_format
   validate :age_cannot_be_less_than_five
