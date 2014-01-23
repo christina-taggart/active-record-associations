@@ -1,5 +1,6 @@
 require 'rspec'
 require 'date'
+require 'pry'
 require_relative '../app/models/student'
 
 

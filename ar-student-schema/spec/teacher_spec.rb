@@ -1,6 +1,8 @@
 require 'rspec'
 require 'date'
 require 'faker'
+require 'pry'
+require_relative '../app/models/student'
 require_relative '../app/models/teacher'
 
 
@@ -20,6 +22,10 @@ describe Teacher do
     another_teacher = Teacher.create email: email
     teacher.should be_valid
     another_teacher.should_not be_valid
+  end
+
+  it "should have students" do
+    Teacher.first.students.any?.should eq true
   end
 
 end
